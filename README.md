@@ -1,6 +1,8 @@
 # 🧠 Code for paper "Neuromorphic optoelectronic computing system based on semiconducting metal oxide nanocrystallites"
 
-This project implements a biologically inspired spiking neural network (SNN) trained using Spike-Timing Dependent Plasticity (STDP) with a Winner-Takes-All (WTA) competition mechanism. The network learns to distinguish between left and right diagonals in simple binary input patterns.
+This project presents a minimal, interpretable spiking neural network (SNN) model that utilizes Spike-Timing Dependent Plasticity (STDP) combined with a Winner-Takes-All (WTA) mechanism. The goal is to demonstrate biologically inspired unsupervised learning for a simple pattern recognition task: distinguishing between left and right diagonals in a binary image.
+
+The implementation is ideal for use in neuroscience education, research prototypes, or demonstrations of self-organizing learning mechanisms.
 
 ---
 
@@ -8,35 +10,30 @@ This project implements a biologically inspired spiking neural network (SNN) tra
 
 ```
 .
-├── encoding.py        # Encodes 2D binary input into spike trains
-├── neuron.py          # Spiking neuron model with STDP and WTA logic
-├── learning.py        # STDP learning rule and synaptic updates
-├── parameters.py      # Configuration and model parameters
-├── test_stdp.py       # Main training/testing loop
+├── encoding.py        # Converts binary inputs into spike trains
+├── neuron.py          # Implements LIF neurons with STDP and WTA
+├── learning.py        # Defines synaptic update rules and learning dynamics
+├── parameters.py      # Configures simulation parameters
+├── test_stdp.py       # Entry point for running training and evaluation
 ```
 
 ---
 
 ## 🧬 Biological Inspiration
 
-The model integrates two key neuroscience-inspired components:
-
 - **STDP (Spike-Timing Dependent Plasticity)**  
-  Synaptic weights are updated based on the timing of spikes between pre- and post-synaptic neurons. If a presynaptic spike precedes a postsynaptic spike, the connection is strengthened.
+  This synaptic update rule strengthens or weakens connections based on the precise timing between pre- and post-synaptic spikes. It emulates Hebbian learning and enables the network to adapt autonomously to repeated input patterns.
 
 - **Winner-Takes-All (WTA)**  
-  Only one output neuron is allowed to spike per stimulus, enforcing competitive learning and promoting specialization.
+  A competitive mechanism ensuring that only the neuron with the strongest response is allowed to spike. This forces output neurons to specialize and reduces redundancy.
+
+Together, these components create a minimal yet powerful model of unsupervised representation learning.
 
 ---
 
 ## 🖼️ Task Overview
 
-The network is trained to classify 5×5 binary input matrices as one of two classes:
-
-- `\` Left diagonal  
-- `/` Right diagonal
-
-Each matrix is converted into a temporal sequence of spikes. Neurons compete to respond to patterns, and STDP reinforces the winning neuron's connections to the correct input pattern.
+The model learns to classify $5 \times 5$ binary matrices containing either a left (`\`) or right (`/`) diagonal. These matrices are encoded into spike trains, and the neurons adapt their synaptic weights to specialize in detecting a specific orientation. The WTA mechanism guarantees that only one output neuron responds per stimulus.
 
 ---
 
@@ -45,42 +42,63 @@ Each matrix is converted into a temporal sequence of spikes. Neurons compete to 
 ### Requirements
 
 - Python 3.8+
-- numpy
-- matplotlib (optional, for plots)
+- `numpy`
+- `matplotlib` (for visualization, optional)
 
-Install dependencies with:
+### Installation
 
 ```bash
 pip install numpy matplotlib
 ```
 
-### Run the Training Script
+### Running the Model
 
 ```bash
 python test_stdp.py
 ```
 
-The script initializes the network, encodes input patterns, and runs training with real-time updates of weights and spike activity.
+This script initializes the neural network, generates training data, encodes the input, and performs STDP-based learning with WTA competition. Progress can be logged or visualized, depending on configuration.
 
 ---
 
 ## ⚙️ Core Concepts
 
-- **Spike Encoding**: Input pixels are mapped to spike times using fixed latency coding.  
-- **Neuron Dynamics**: Leaky Integrate-and-Fire (LIF) neurons simulate membrane potential and spiking.  
-- **Learning Rule**: STDP updates weights based on spike time differences.  
-- **WTA Mechanism**: Suppresses all but the first spiking output neuron.
+- **Spike Encoding**: Active pixels are assigned earlier spike times, while inactive ones do not emit spikes.
+- **LIF Neurons**: Leaky integrate-and-fire model approximates biological membrane potential dynamics.
+- **Plasticity**: STDP modifies synaptic strengths based on temporal correlations between spikes.
+- **Inhibition**: Lateral competition ensures that only the most responsive neuron fires per input sample.
+
+---
+
+## 📊 Suggested Visualizations
+
+To explore the network's behavior, consider plotting:
+- **Spike rasters** for observing spiking activity across neurons
+- **Membrane potential curves** to track the competition dynamics
+- **Synaptic weight matrices** to visualize learning convergence and specialization
+
+These visual tools can provide insight into the self-organizing properties of the system.
+
+---
+
+## 🧪 Usage Scenarios
+
+- Interactive classroom demonstrations of STDP learning
+- Benchmarking biologically plausible algorithms
+- Visual neuroscience projects
+- Research in neuromorphic computing and unsupervised learning
 
 ---
 
 ## 🧾 License
 
-This project is distributed under the MIT License.  
-Feel free to use, modify, and share under the terms of the license.
+This project is open-sourced under the MIT License.  
+You are free to use, modify, and distribute the code with proper attribution and without warranty.
 
 ---
 
 ## 👤 Author
 
-Created as a minimal and interpretable demo of STDP + WTA mechanisms for neural coding and pattern recognition.
+Developed to serve as a concise and clear demonstration of unsupervised learning through STDP and competitive dynamics. Suitable for anyone exploring neural coding, plasticity, or neuromorphic model design.
+
 
