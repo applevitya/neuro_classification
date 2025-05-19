@@ -5,7 +5,7 @@ This project implements a biologically inspired spiking neural network (SNN) tra
 ---
 
 ## 📂 Project Structure
-.
+..
 ├── encoding.py        # Encodes 2D binary input into spike trains
 ├── neuron.py          # Spiking neuron model with STDP and WTA logic
 ├── learning.py        # STDP learning rule and synaptic updates
